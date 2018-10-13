@@ -1,6 +1,7 @@
 node_modules
 .cache/
-dist/
+dist/App.js
+dist/App.map
 .env
 .DS_Store
 coverage/
