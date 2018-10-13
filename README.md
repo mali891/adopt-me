@@ -17,6 +17,10 @@ Front-end React application using the Petfinder API. A simple app to consolidate
 -   `cd` into root
 -   run `yarn dev` or `npm run dev` - this will run the app on [http://localhost:1234](http://localhost:1234)
 
+## Bundler
+
+-   Uses [Parcel](https://parceljs.org/). Quick and easy for small apps.
+
 ## Router
 
 -   Uses [Reach Router](https://github.com/reach/router). Top level routes found in `./src/App.js`.
