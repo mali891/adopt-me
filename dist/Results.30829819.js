@@ -104,7 +104,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   // Override the current require with this new one
   return newRequire;
-})({"Carousel.js":[function(require,module,exports) {
+})({"Pet.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -113,6 +113,8 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
+
+var _router = require("@reach/router");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -134,177 +136,78 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var Carousel =
+var Pet =
 /*#__PURE__*/
 function (_React$Component) {
-  _inherits(Carousel, _React$Component);
+  _inherits(Pet, _React$Component);
 
-  function Carousel() {
-    var _getPrototypeOf2;
+  function Pet() {
+    _classCallCheck(this, Pet);
 
-    var _this;
-
-    var _temp;
-
-    _classCallCheck(this, Carousel);
-
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Carousel)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = {
-      photos: [],
-      active: 0
-    }, _this.handleIndexClick = function (e) {
-      return _this.setState({
-        active: +e.target.dataset.index
-      });
-    }, _temp));
+    return _possibleConstructorReturn(this, _getPrototypeOf(Pet).apply(this, arguments));
   }
 
-  _createClass(Carousel, [{
+  _createClass(Pet, [{
     key: "render",
     value: function render() {
-      var _this2 = this;
-
-      var _this$state = this.state,
-          photos = _this$state.photos,
-          active = _this$state.active;
-      return _react.default.createElement("div", {
-        className: "carousel"
-      }, _react.default.createElement("img", {
-        src: photos[active].value,
-        alt: "primary animal"
-      }), _react.default.createElement("div", {
-        className: "carousel-smaller"
-      }, photos.map(function (photo, index) {
-        return (
-          /* eslint-disable-next-line */
-          _react.default.createElement("img", {
-            key: photo.value,
-            src: photo.value,
-            className: index === active ? 'active' : '',
-            alt: "animal thumbnail",
-            "data-index": index,
-            onClick: _this2.handleIndexClick
-          })
-        );
-      })));
-    }
-  }], [{
-    key: "getDerivedStateFromProps",
-    value: function getDerivedStateFromProps(_ref) {
-      var media = _ref.media;
+      var _this$props = this.props,
+          name = _this$props.name,
+          animal = _this$props.animal,
+          breed = _this$props.breed,
+          media = _this$props.media,
+          location = _this$props.location,
+          id = _this$props.id;
       var photos = [];
 
       if (media && media.photos && media.photos.photo) {
         photos = media.photos.photo.filter(function (photo) {
-          return photo['@size'] === 'pn';
+          return photo["@size"] === 'pn';
         });
-      }
+      } //If there is no associated image for the pet, use a placeholder
 
-      return {
-        photos: photos
-      };
-    } //Set which image is active, convert to a number if it's a string
 
+      var hero = photos[0] ? photos[0].value : 'http://placecorgi.com/300/300';
+      return (//Display details of the pet
+        //Link through to a new page which will display the details of the animal
+        _react.default.createElement(_router.Link, {
+          to: "/details/".concat(id),
+          className: "pet"
+        }, _react.default.createElement("div", {
+          className: "image-container"
+        }, _react.default.createElement("img", {
+          src: hero,
+          alt: "".concat(name, " image")
+        })), _react.default.createElement("div", {
+          className: "info"
+        }, _react.default.createElement("h1", null, name), _react.default.createElement("h2", null, animal, " - ", breed, " - ", location)))
+      );
+    }
   }]);
 
-  return Carousel;
+  return Pet;
 }(_react.default.Component);
 
-var _default = Carousel;
+var _default = Pet;
 exports.default = _default;
-},{"react":"../node_modules/react/index.js"}],"Modal.js":[function(require,module,exports) {
+},{"react":"../node_modules/react/index.js","@reach/router":"../node_modules/@reach/router/es/index.js"}],"Results.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _reactDom = require("react-dom");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-var modalRoot = document.getElementById('modal');
-
-var Modal =
-/*#__PURE__*/
-function (_React$Component) {
-  _inherits(Modal, _React$Component);
-
-  function Modal(props) {
-    var _this;
-
-    _classCallCheck(this, Modal);
-
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Modal).call(this, props));
-    _this.el = document.createElement('div');
-    return _this;
-  }
-
-  _createClass(Modal, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      modalRoot.appendChild(this.el);
-    }
-  }, {
-    key: "componentWillUnmount",
-    value: function componentWillUnmount() {
-      modalRoot.removeChild(this.el);
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      return (0, _reactDom.createPortal)(this.props.children, this.el);
-    }
-  }]);
-
-  return Modal;
-}(_react.default.Component);
-
-var _default = Modal;
-exports.default = _default;
-},{"react":"../node_modules/react/index.js","react-dom":"../node_modules/react-dom/index.js"}],"Details.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
+exports.default = ResultsWithContext;
 
 var _react = _interopRequireDefault(require("react"));
 
 var _petfinderClient = _interopRequireDefault(require("petfinder-client"));
 
-var _router = require("@reach/router");
+var _SearchContext = require("./SearchContext");
 
-var _reactLoadable = _interopRequireDefault(require("react-loadable"));
+var _Pet = _interopRequireDefault(require("./Pet"));
 
-var _Carousel = _interopRequireDefault(require("./Carousel"));
+var _SearchBox = _interopRequireDefault(require("./SearchBox"));
 
-var _Modal = _interopRequireDefault(require("./Modal"));
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -331,114 +234,93 @@ var petfinder = (0, _petfinderClient.default)({
   key: "8979ff930425672ce77e4c52cc385f14",
   secret: "acc72c3621ee1c85d3350ad8f8e4dd26"
 });
-var LoadableModalContent = (0, _reactLoadable.default)({
-  loader: function loader() {
-    return require("_bundle_loader")(require.resolve('./AdoptModalContent'));
-  },
-  loading: function loading() {
-    return _react.default.createElement("h1", null, "Loading content...");
-  }
-});
 
-var Details =
+var Results =
 /*#__PURE__*/
 function (_React$Component) {
-  _inherits(Details, _React$Component);
+  _inherits(Results, _React$Component);
 
-  function Details() {
+  function Results() {
     var _getPrototypeOf2;
 
     var _this;
 
     var _temp;
 
-    _classCallCheck(this, Details);
+    _classCallCheck(this, Results);
 
     for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
       args[_key] = arguments[_key];
     }
 
-    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Details)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = {
-      loading: true,
-      showModal: false
-    }, _this.toggleModal = function () {
-      return _this.setState({
-        showModal: !_this.state.showModal
+    return _possibleConstructorReturn(_this, (_temp = _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Results)).call.apply(_getPrototypeOf2, [this].concat(args))), _this.state = {
+      pets: [] //Initiate search on render
+
+    }, _this.search = function () {
+      var searchParams = _this.props.searchParams; //Call the API using state from Context
+
+      petfinder.pet.find({
+        output: "full",
+        location: searchParams.location,
+        animal: searchParams.animal,
+        breed: searchParams.breed
+      }).then(function (data) {
+        var petsArray = data.petfinder.pets;
+        var pets; //Make sure we have an array to work with
+
+        if (petsArray && petsArray.pet) {
+          Array.isArray(petsArray.pet) ? pets = petsArray.pet : pets = [petsArray.pet];
+        } else {
+          pets = [];
+        }
+
+        _this.setState({
+          pets: pets
+        });
       });
     }, _temp));
   }
 
-  _createClass(Details, [{
+  _createClass(Results, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      var _this2 = this;
-
-      //Get the details for the relevant pet from the API
-      petfinder.pet.get({
-        output: "full",
-        id: this.props.id
-      }).then(function (data) {
-        var pet = data.petfinder.pet;
-        var breed;
-
-        if (Array.isArray(pet.breeds.breed)) {
-          breed = pet.breeds.breed.join(', ');
-        } else {
-          breed = pet.breeds.breed;
-        }
-
-        _this2.setState({
-          name: pet.name,
-          animal: pet.animal,
-          location: "".concat(pet.contact.city, ", ").concat(pet.contact.state),
-          description: pet.description,
-          media: pet.media,
-          breed: breed,
-          loading: false
-        }); //If error, navigate to home route (could be improved with some signposting)
-
-      }).catch(function () {
-        return (0, _router.navigate)("/");
-      });
+      this.search();
     }
   }, {
     key: "render",
     value: function render() {
-      var _this$state = this.state,
-          name = _this$state.name,
-          animal = _this$state.animal,
-          location = _this$state.location,
-          description = _this$state.description,
-          media = _this$state.media,
-          breed = _this$state.breed,
-          loading = _this$state.loading,
-          showModal = _this$state.showModal;
-
-      if (loading) {
-        return _react.default.createElement("h1", null, "Loading...");
-      }
-
       return _react.default.createElement("div", {
-        className: "details"
-      }, _react.default.createElement(_Carousel.default, {
-        media: media
-      }), _react.default.createElement("div", {
-        className: "details-inner"
-      }, _react.default.createElement("h1", null, name), _react.default.createElement("h2", null, animal, " - ", breed, " - ", location), _react.default.createElement("button", {
-        onClick: this.toggleModal
-      }, "Adopt ", name), _react.default.createElement("p", null, description), showModal && _react.default.createElement(_Modal.default, null, _react.default.createElement(LoadableModalContent, {
-        toggleModal: this.toggleModal,
-        name: name
-      }))));
+        className: "search"
+      }, _react.default.createElement(_SearchBox.default, {
+        search: this.search
+      }), this.state.pets.map(function (pet) {
+        var breed;
+        Array.isArray(pet.breeds.breed) ? breed = pet.breeds.breed.join(', ') : breed = pet.breeds.breed;
+        return _react.default.createElement(_Pet.default, {
+          key: pet.id,
+          id: pet.id,
+          name: pet.name,
+          animal: pet.animal,
+          breed: breed,
+          media: pet.media,
+          location: "".concat(pet.contact.city, ", ").concat(pet.contact.state)
+        });
+      }));
     }
   }]);
 
-  return Details;
-}(_react.default.Component);
+  return Results;
+}(_react.default.Component); //This is needed since we are using context outside of render method
 
-var _default = Details;
-exports.default = _default;
-},{"react":"../node_modules/react/index.js","petfinder-client":"../node_modules/petfinder-client/index.js","@reach/router":"../node_modules/@reach/router/es/index.js","react-loadable":"../node_modules/react-loadable/lib/index.js","./Carousel":"Carousel.js","./Modal":"Modal.js","_bundle_loader":"../node_modules/parcel-bundler/src/builtins/bundle-loader.js","./AdoptModalContent":[["AdoptModalContent.74779901.js","AdoptModalContent.js"],"AdoptModalContent.74779901.map","AdoptModalContent.js"]}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+
+function ResultsWithContext(props) {
+  return _react.default.createElement(_SearchContext.Consumer, null, function (context) {
+    return _react.default.createElement(Results, _extends({}, props, {
+      searchParams: context
+    }));
+  });
+}
+},{"react":"../node_modules/react/index.js","petfinder-client":"../node_modules/petfinder-client/index.js","./SearchContext":"SearchContext.js","./Pet":"Pet.js","./SearchBox":"SearchBox.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -607,141 +489,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}],"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
-var bundleURL = null;
-
-function getBundleURLCached() {
-  if (!bundleURL) {
-    bundleURL = getBundleURL();
-  }
-
-  return bundleURL;
-}
-
-function getBundleURL() {
-  // Attempt to find the URL of the current script and use that as the base URL
-  try {
-    throw new Error();
-  } catch (err) {
-    var matches = ('' + err.stack).match(/(https?|file|ftp):\/\/[^)\n]+/g);
-
-    if (matches) {
-      return getBaseURL(matches[0]);
-    }
-  }
-
-  return '/';
-}
-
-function getBaseURL(url) {
-  return ('' + url).replace(/^((?:https?|file|ftp):\/\/.+)\/[^/]+$/, '$1') + '/';
-}
-
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-},{}],"../node_modules/parcel-bundler/src/builtins/bundle-loader.js":[function(require,module,exports) {
-var getBundleURL = require('./bundle-url').getBundleURL;
-
-function loadBundlesLazy(bundles) {
-  if (!Array.isArray(bundles)) {
-    bundles = [bundles];
-  }
-
-  var id = bundles[bundles.length - 1];
-
-  try {
-    return Promise.resolve(require(id));
-  } catch (err) {
-    if (err.code === 'MODULE_NOT_FOUND') {
-      return new LazyPromise(function (resolve, reject) {
-        loadBundles(bundles.slice(0, -1)).then(function () {
-          return require(id);
-        }).then(resolve, reject);
-      });
-    }
-
-    throw err;
-  }
-}
-
-function loadBundles(bundles) {
-  return Promise.all(bundles.map(loadBundle));
-}
-
-var bundleLoaders = {};
-
-function registerBundleLoader(type, loader) {
-  bundleLoaders[type] = loader;
-}
-
-module.exports = exports = loadBundlesLazy;
-exports.load = loadBundles;
-exports.register = registerBundleLoader;
-var bundles = {};
-
-function loadBundle(bundle) {
-  var id;
-
-  if (Array.isArray(bundle)) {
-    id = bundle[1];
-    bundle = bundle[0];
-  }
-
-  if (bundles[bundle]) {
-    return bundles[bundle];
-  }
-
-  var type = (bundle.substring(bundle.lastIndexOf('.') + 1, bundle.length) || bundle).toLowerCase();
-  var bundleLoader = bundleLoaders[type];
-
-  if (bundleLoader) {
-    return bundles[bundle] = bundleLoader(getBundleURL() + bundle).then(function (resolved) {
-      if (resolved) {
-        module.bundle.register(id, resolved);
-      }
-
-      return resolved;
-    });
-  }
-}
-
-function LazyPromise(executor) {
-  this.executor = executor;
-  this.promise = null;
-}
-
-LazyPromise.prototype.then = function (onSuccess, onError) {
-  if (this.promise === null) this.promise = new Promise(this.executor);
-  return this.promise.then(onSuccess, onError);
-};
-
-LazyPromise.prototype.catch = function (onError) {
-  if (this.promise === null) this.promise = new Promise(this.executor);
-  return this.promise.catch(onError);
-};
-},{"./bundle-url":"../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"../node_modules/parcel-bundler/src/builtins/loaders/browser/js-loader.js":[function(require,module,exports) {
-module.exports = function loadJSBundle(bundle) {
-  return new Promise(function (resolve, reject) {
-    var script = document.createElement('script');
-    script.async = true;
-    script.type = 'text/javascript';
-    script.charset = 'utf-8';
-    script.src = bundle;
-
-    script.onerror = function (e) {
-      script.onerror = script.onload = null;
-      reject(e);
-    };
-
-    script.onload = function () {
-      script.onerror = script.onload = null;
-      resolve();
-    };
-
-    document.getElementsByTagName('head')[0].appendChild(script);
-  });
-};
-},{}],0:[function(require,module,exports) {
-var b=require("../node_modules/parcel-bundler/src/builtins/bundle-loader.js");b.register("js",require("../node_modules/parcel-bundler/src/builtins/loaders/browser/js-loader.js"));b.load([]).then(function(){require("Details.js");});
-},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js",0], null)
-//# sourceMappingURL=/Details.180b8e97.map
+},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js"], null)
+//# sourceMappingURL=/Results.30829819.map

@@ -4,9 +4,7 @@ import { Router } from '@reach/router';
 import Loadable from 'react-loadable';
 import pf from 'petfinder-client';
 import { Provider } from './SearchContext';
-import Results from './Results';
 import Navbar from './Navbar';
-import SearchParams from './SearchParams';
 
 //Pass the API creds to API method
 const petfinder = pf({
@@ -16,6 +14,20 @@ const petfinder = pf({
 
 const LoadableDetails = Loadable({
 	loader: () => import('./Details'),
+	loading() {
+		return <h1>Loading split out code...</h1>
+	}
+})
+
+const LoadableSearchParams = Loadable({
+	loader: () => import('./SearchParams'),
+	loading() {
+		return <h1>Loading split out code...</h1>
+	}
+})
+
+const LoadableResults = Loadable({
+	loader: () => import('./Results'),
 	loading() {
 		return <h1>Loading split out code...</h1>
 	}
@@ -67,9 +79,9 @@ class App extends React.Component {
                     {/* Open Context API provider to pass data to several components without prop drilling */}
                     <Provider value={ this.state }>
                         <Router>
-                            <Results path="/" />
+                            <LoadableResults path="/" />
                             <LoadableDetails path="/details/:id" />
-                            <SearchParams path="/search-params" />
+                            <LoadableSearchParams path="/search-params" />
                         </Router>
                     </Provider>
                 </div>

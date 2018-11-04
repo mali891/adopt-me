@@ -1,6 +1,7 @@
 import React from 'react';
 import pf from 'petfinder-client';
 import { navigate } from '@reach/router';
+import Loadable from 'react-loadable';
 import Carousel from './Carousel';
 import Modal from './Modal';
 
@@ -8,6 +9,11 @@ import Modal from './Modal';
 const petfinder = pf({
     key: process.env.API_KEY,
     secret: process.env.API_SECRET
+})
+
+const LoadableModalContent = Loadable({
+	loader: () => import('./AdoptModalContent'),
+	loading: () => <h1>Loading content...</h1>
 })
 
 class Details extends React.Component {
@@ -65,11 +71,7 @@ class Details extends React.Component {
                     {/* Conditionally render modal window */}
                     { showModal && 
                         <Modal>
-                            <h1>Would you like to adopt { name }?</h1>
-                            <div className="buttons">
-                                <button onClick={ this.toggleModal }>Yes</button>
-                                <button onClick={ this.toggleModal }>Definitely</button>
-                            </div>
+                            <LoadableModalContent toggleModal={ this.toggleModal } name={ name } />
                         </Modal>
                     }
                 </div>
